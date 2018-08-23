@@ -57,6 +57,6 @@ public class MicrometerTelemetryTest {
     Timer timer = meterRegistry.get(RANDOM_NAME).tag(RANDOM_TAG, RANDOM_TAG_VALUE).timer();
 
     assertEquals(RANDOM_COUNT, result);
-    assertEquals(RANDOM_COUNT, timer.totalTime(TimeUnit.MILLISECONDS), 2);
+    assertEquals(RANDOM_COUNT, timer.totalTime(TimeUnit.MILLISECONDS), 9); // around 10 (1-19)
   }
 }

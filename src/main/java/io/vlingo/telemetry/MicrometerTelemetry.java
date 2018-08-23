@@ -5,6 +5,7 @@ import io.micrometer.core.instrument.ImmutableTag;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class MicrometerTelemetry implements Telemetry<MeterRegistry> {
   @Override
   public <RETURN> RETURN time(final String timerName, final Callable<RETURN> callable, final Tag... tags) throws Exception {
     return timerOrNew(timerName, toMicrometerTag(tags)).recordCallable(callable);
+  }
+
+  @Override
+  public void close() throws IOException {
+    meterRegistry.close();
   }
 
   private Counter counterOrNew(final String counterName, final Iterable<io.micrometer.core.instrument.Tag> tags) {

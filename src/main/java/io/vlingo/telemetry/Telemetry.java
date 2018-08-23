@@ -1,8 +1,9 @@
 package io.vlingo.telemetry;
 
+import java.io.Closeable;
 import java.util.concurrent.Callable;
 
-public interface Telemetry<UNDERLYING> {
+public interface Telemetry<UNDERLYING> extends Closeable  {
   final class Tag {
     private final String name;
     private final String value;

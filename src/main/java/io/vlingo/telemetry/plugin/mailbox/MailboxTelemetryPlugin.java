@@ -1,21 +1,18 @@
 package io.vlingo.telemetry.plugin.mailbox;
 
-import io.micrometer.core.instrument.MeterRegistry;
 import io.vlingo.actors.Configuration;
 import io.vlingo.actors.Registrar;
 import io.vlingo.actors.plugin.Plugin;
 import io.vlingo.actors.plugin.PluginConfiguration;
 import io.vlingo.actors.plugin.PluginProperties;
 import io.vlingo.actors.plugin.mailbox.DefaultMailboxProviderKeeper;
-import io.vlingo.telemetry.JMXRegistryProvider;
-import io.vlingo.telemetry.RegistryProvider;
+import io.vlingo.telemetry.Telemetry;
 
 import java.util.Properties;
 
 public class MailboxTelemetryPlugin implements Plugin {
   public static class MailboxTelemetryPluginConfiguration implements PluginConfiguration {
     private static final String NO_NAME = "_No_Name_";
-    private RegistryProvider registryProvider;
 
     @Override
     public void build(final Configuration configuration) {
@@ -24,16 +21,6 @@ public class MailboxTelemetryPlugin implements Plugin {
 
     @Override
     public void buildWith(final Configuration configuration, final PluginProperties properties) {
-      String provider = properties.getString("registryProvider", JMXRegistryProvider.class.getCanonicalName());
-      try {
-        registryProvider = RegistryProvider.fromClass(provider);
-      } catch (final RegistryProvider.InvalidRegistryProviderException e) {
-        throw new IllegalStateException(e);
-      }
-    }
-
-    public final RegistryProvider registryProvider() {
-      return registryProvider;
     }
 
     @Override
@@ -43,7 +30,6 @@ public class MailboxTelemetryPlugin implements Plugin {
   }
 
   private final MailboxTelemetryPluginConfiguration configuration;
-  private MeterRegistry registry;
 
   public MailboxTelemetryPlugin() {
     this.configuration = new MailboxTelemetryPluginConfiguration();
@@ -51,7 +37,7 @@ public class MailboxTelemetryPlugin implements Plugin {
 
   @Override
   public void close() {
-    registry.close();
+
   }
 
   @Override
@@ -71,7 +57,7 @@ public class MailboxTelemetryPlugin implements Plugin {
 
   @Override
   public void start(final Registrar registrar) {
-    registry = configuration.registryProvider().provide(registrar.world());
-    registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(registry)));
+    Telemetry<?> telemetry = null; // registrar.world().telemetry();
+    registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(telemetry)));
   }
 }

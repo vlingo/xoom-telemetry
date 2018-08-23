@@ -1,18 +1,7 @@
 package io.vlingo.telemetry.plugin.mailbox;
 
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.ImmutableTag;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tag;
-import io.vlingo.actors.Actor;
 import io.vlingo.actors.Message;
-
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import io.vlingo.telemetry.Telemetry;
 
 public class DefaultMailboxTelemetry implements MailboxTelemetry {
   public static final String PREFIX = "vlingo.MailboxTelemetry.";
@@ -25,22 +14,15 @@ public class DefaultMailboxTelemetry implements MailboxTelemetry {
   public static final String FAILED_SEND = "failed.send";
   public static final String FAILED_DELIVER = "failed.deliver";
 
-  private final MeterRegistry registry;
-  private final ConcurrentHashMap<String, AtomicInteger> gauges;
-  private final ConcurrentHashMap<String, Counter> counters;
-  private final Counter idleCounter;
+  private final Telemetry<?> telemetry;
 
-  public DefaultMailboxTelemetry(final MeterRegistry registry) {
-    this.registry = registry;
-    this.gauges = new ConcurrentHashMap<>();
-    this.counters = new ConcurrentHashMap<>();
-    this.idleCounter = registry.counter(PREFIX + IDLE);
+  public DefaultMailboxTelemetry(final Telemetry<?> telemetry) {
+    this.telemetry = telemetry;
   }
 
   @Override
   public void onSendMessage(final Message message) {
-    gaugeFor(message, SCOPE_INSTANCE, PENDING).incrementAndGet();
-    gaugeFor(message, SCOPE_CLASS, PENDING).incrementAndGet();
+    incrementGaugeFor(message, 1, PENDING);
   }
 
   @Override
@@ -48,25 +30,23 @@ public class DefaultMailboxTelemetry implements MailboxTelemetry {
     Class<? extends Throwable> exceptionClass = exception.getClass();
     String exceptionName = exceptionClass.getSimpleName();
 
-    counterFor(message, SCOPE_INSTANCE, FAILED_SEND + "." + exceptionName).increment();
-    counterFor(message, SCOPE_CLASS, FAILED_SEND + "." + exceptionName).increment();
-    counterForException(exceptionClass).increment();
+    incrementCounterFor(message, FAILED_SEND + "." + exceptionName);
+    incrementCounterFor(exceptionClass);
   }
 
   @Override
   public void onReceiveEmptyMailbox() {
-    idleCounter.increment();
+    incrementIdleCounter();
   }
 
   @Override
   public void onReceiveMessage(final Message message) {
-    gaugeFor(message, SCOPE_INSTANCE, PENDING).decrementAndGet();
-    gaugeFor(message, SCOPE_CLASS, PENDING).decrementAndGet();
+    incrementGaugeFor(message, -1, PENDING);
   }
 
   @Override
   public void onReceiveMessageFailed(final Throwable exception) {
-    counterForException(exception.getClass()).increment();
+    incrementCounterFor(exception.getClass());
   }
 
   @Override
@@ -74,72 +54,26 @@ public class DefaultMailboxTelemetry implements MailboxTelemetry {
     Class<? extends Throwable> exceptionClass = exception.getClass();
     String exceptionName = exceptionClass.getSimpleName();
 
-    counterFor(message, SCOPE_INSTANCE, FAILED_DELIVER + "." + exceptionName).increment();
-    counterFor(message, SCOPE_CLASS, FAILED_DELIVER + "." + exceptionName).increment();
-    counterForException(exceptionClass).increment();
+    incrementCounterFor(message, FAILED_DELIVER + "." + exceptionName);
+    incrementCounterFor(exceptionClass);
   }
 
-  public final AtomicInteger gaugeFor(final Message message, final String scope, final String concept) {
-    Actor actor = message.actor();
-    String actorClassName = actor.getClass().getSimpleName();
-    String metricId = (actor.address().name() != null ? actor.address().name() : "" + actor.address().id());
-
-    String key = actorClassName + "::" + scope + "." + metricId + "." + concept;
-    List<Tag> tags = emptyList();
-    if (scope.equals(SCOPE_CLASS)) {
-      key = actorClassName + "::" + SCOPE_CLASS + "." + concept;
-    } else {
-      tags = singletonList(forMessage(message));
-    }
-
-    AtomicInteger gauge = gauges.getOrDefault(
-        key,
-        registry.gauge(
-            PREFIX + actorClassName + "." + concept,
-            tags,
-            new AtomicInteger(0)));
-
-    gauges.put(key, gauge);
-    return gauge;
+  public final void incrementGaugeFor(final Message message, final int delta, final String concept) {
+    String gaugeName = PREFIX + message.actor().getClass().getSimpleName() + "." + concept;
+    telemetry.gauge(gaugeName, delta, Telemetry.Tag.of("Address", message.actor().address().name()));
   }
 
-  public final Counter counterFor(final Message message, final String scope, final String concept) {
-    Actor actor = message.actor();
-    String actorClassName = actor.getClass().getSimpleName();
-    String metricId = (actor.address().name() != null ? actor.address().name() : "" + actor.address().id());
-
-    String key = actorClassName + "::" + scope + "." + metricId + "." + concept;
-    List<Tag> tags = emptyList();
-    if (scope.equals(SCOPE_CLASS)) {
-      key = actorClassName + "::" + SCOPE_CLASS + "." + concept;
-    } else {
-      tags = singletonList(forMessage(message));
-    }
-
-    Counter counter = counters.getOrDefault(
-        key,
-        registry.counter(
-            PREFIX + actorClassName + "." + concept,
-            tags));
-
-    counters.put(key, counter);
-    return counter;
+  public final void incrementCounterFor(final Message message, final String concept) {
+    String gaugeName = PREFIX + message.actor().getClass().getSimpleName() + "." + concept;
+    telemetry.count(gaugeName, 1, Telemetry.Tag.of("Address", message.actor().address().name()));
   }
 
-  public final Counter counterForException(final Class<? extends Throwable> ex) {
+  public final void incrementCounterFor(final Class<? extends Throwable> ex) {
     String exceptionName = ex.getSimpleName();
-    String key = "Exception." + exceptionName;
-    Counter counter = counters.getOrDefault(key, registry.counter(PREFIX + exceptionName));
-
-    counters.put(key, counter);
-    return counter;
+    telemetry.count(PREFIX + exceptionName, 1);
   }
 
-  public final Counter idleCounter() {
-    return idleCounter;
-  }
-
-  private Tag forMessage(final Message message) {
-    return new ImmutableTag("Address", message.actor().address().name());
+  public final void incrementIdleCounter() {
+    telemetry.count(IDLE, 1);
   }
 }

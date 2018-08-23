@@ -29,11 +29,4 @@ public class MailboxTelemetryPluginTest {
     plugin.start(registrar);
     verify(registrar).registerMailboxProviderKeeper(any());
   }
-
-  @Test(expected = IllegalStateException.class)
-  public void testThatFailsWithANonExistingRegistryProvider() {
-    plugin.configuration().buildWith(Configuration.define(), new PluginProperties("telemetry", new Properties() {{
-      put("plugin.telemetry.registryProvider", "io.non.existing.class.RegistryProvider");
-    }}));
-  }
 }
