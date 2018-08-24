@@ -1,15 +1,11 @@
 package io.vlingo.telemetry;
 
-import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.jmx.JmxMeterRegistry;
 import io.vlingo.ActorsTest;
-import io.vlingo.actors.World;
-import io.vlingo.actors.testkit.TestWorld;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class DefaultTelemetryProviderTest extends ActorsTest  {
   private TelemetryProvider defaultTelemetryProvider;

@@ -1,6 +1,5 @@
 package io.vlingo;
 
-import io.vlingo.actors.Actor;
 import io.vlingo.actors.World;
 import io.vlingo.actors.testkit.TestUntil;
 import io.vlingo.actors.testkit.TestWorld;

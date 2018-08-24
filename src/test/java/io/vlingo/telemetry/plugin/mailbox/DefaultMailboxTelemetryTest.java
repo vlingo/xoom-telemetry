@@ -15,10 +15,7 @@ import io.vlingo.telemetry.MicrometerTelemetry;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static io.vlingo.telemetry.plugin.mailbox.DefaultMailboxTelemetry.IDLE;
 import static io.vlingo.telemetry.plugin.mailbox.DefaultMailboxTelemetry.PREFIX;
