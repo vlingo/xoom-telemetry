@@ -102,7 +102,7 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
   }
 
   private void assertIdlesAre(final int expectedIdles) {
-    double idle = registry.get(IDLE).counter().count();
+    double idle = registry.get(PREFIX + IDLE).counter().count();
     assertEquals(expectedIdles, idle, 0.0);
   }
 

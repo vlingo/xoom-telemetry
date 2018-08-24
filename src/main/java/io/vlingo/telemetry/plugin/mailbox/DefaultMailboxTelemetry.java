@@ -74,6 +74,6 @@ public class DefaultMailboxTelemetry implements MailboxTelemetry {
   }
 
   public final void incrementIdleCounter() {
-    telemetry.count(IDLE, 1);
+    telemetry.count(PREFIX + IDLE, 1);
   }
 }
