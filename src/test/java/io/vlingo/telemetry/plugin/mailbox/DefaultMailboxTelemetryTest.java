@@ -8,7 +8,9 @@
 package io.vlingo.telemetry.plugin.mailbox;
 
 import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.vlingo.ActorsTest;
@@ -16,12 +18,15 @@ import io.vlingo.actors.Actor;
 import io.vlingo.actors.Definition;
 import io.vlingo.actors.Message;
 import io.vlingo.actors.NoProtocol;
+import io.vlingo.telemetry.MicrometerTelemetry;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
+import static io.vlingo.telemetry.plugin.mailbox.DefaultMailboxTelemetry.IDLE;
+import static io.vlingo.telemetry.plugin.mailbox.DefaultMailboxTelemetry.PREFIX;
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -46,16 +51,16 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
     doReturn(receiver).when(message).actor();
 
     registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, Clock.SYSTEM);
-    telemetry = new DefaultMailboxTelemetry(registry);
+    telemetry = new DefaultMailboxTelemetry(new MicrometerTelemetry(registry));
   }
 
   @Test
   public void testThatSendAndReceiveRegistersACounterOnTheActorsMailbox() {
     telemetry.onSendMessage(message);
-    assertPendingMessagesNumberIs(1, 1);
+    assertPendingMessagesNumberIs(1);
 
     telemetry.onReceiveMessage(message);
-    assertPendingMessagesNumberIs(0, 0);
+    assertPendingMessagesNumberIs(0);
   }
 
   @Test
@@ -67,7 +72,7 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
   @Test
   public void testThatFailedSentsAreCounted() {
     telemetry.onSendMessageFailed(message, expectedException());
-    assertFailuresAre(1, 1, DefaultMailboxTelemetry.FAILED_SEND);
+    assertFailuresAre(1, DefaultMailboxTelemetry.FAILED_SEND);
     assertIllegalStateExceptionCount(1);
   }
 
@@ -81,33 +86,27 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
   public void testThatDeliveringFailuresAreCountedFromMessage() {
     telemetry.onDeliverMessageFailed(message, expectedException());
 
-    assertFailuresAre(1, 1, DefaultMailboxTelemetry.FAILED_DELIVER);
+    assertFailuresAre(1, DefaultMailboxTelemetry.FAILED_DELIVER);
     assertIllegalStateExceptionCount(1);
   }
 
-  private void assertPendingMessagesNumberIs(final int expectedActor, final int expectedClass) {
-    AtomicInteger byActorPending = telemetry.gaugeFor(message, DefaultMailboxTelemetry.SCOPE_INSTANCE, DefaultMailboxTelemetry.PENDING);
-    assertEquals(expectedActor, byActorPending.get());
-
-    AtomicInteger byActorClassPending = telemetry.gaugeFor(message, DefaultMailboxTelemetry.SCOPE_CLASS, DefaultMailboxTelemetry.PENDING);
-    assertEquals(expectedClass, byActorClassPending.get());
+  private void assertPendingMessagesNumberIs(final int expectedActor) {
+    Gauge byActorPending = registry.get(PREFIX + "RandomActor.pending").tags(singletonList(Tag.of("Address", addressOfActor))).gauge();
+    assertEquals(expectedActor, byActorPending.value(), 0);
   }
 
-  private void assertFailuresAre(final int expectedActor, final int expectedClass, final String typeOfOp) {
-    double failures = telemetry.counterFor(message, DefaultMailboxTelemetry.SCOPE_INSTANCE, typeOfOp + ".IllegalStateException").count();
+  private void assertFailuresAre(final int expectedActor, final String typeOfOp) {
+    double failures = registry.get(PREFIX + "RandomActor." + typeOfOp + ".IllegalStateException").tags(singletonList(Tag.of("Address", addressOfActor))).counter().count();
     assertEquals(expectedActor, failures, 0.0);
-
-    double globalFailuresOfActorClass = telemetry.counterFor(message, DefaultMailboxTelemetry.SCOPE_CLASS, typeOfOp + ".IllegalStateException").count();
-    assertEquals(expectedClass, globalFailuresOfActorClass, 0.0);
   }
 
   private void assertIllegalStateExceptionCount(final int expected) {
-    double count = telemetry.counterForException(IllegalStateException.class).count();
+    double count = registry.get(PREFIX + "IllegalStateException").counter().count();
     assertEquals(expected, count, 0.0);
   }
 
   private void assertIdlesAre(final int expectedIdles) {
-    double idle = telemetry.idleCounter().count();
+    double idle = registry.get(PREFIX + IDLE).counter().count();
     assertEquals(expectedIdles, idle, 0.0);
   }
 

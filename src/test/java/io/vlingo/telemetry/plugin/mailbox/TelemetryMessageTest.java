@@ -12,6 +12,9 @@ import io.vlingo.actors.Message;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Random;
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -57,5 +60,27 @@ public class TelemetryMessageTest {
     verify(delegate).deliver();
     verify(telemetry, never()).onReceiveMessage(delegate);
     verify(telemetry).onDeliverMessageFailed(delegate, exception);
+  }
+
+  @Test
+  public void testThatRepresentationIsDelegated() {
+    final String representation = UUID.randomUUID().toString();
+    doReturn(representation).when(delegate).representation();
+
+    final String actual = telemetryMessage.representation();
+
+    verify(delegate).representation();
+    assertEquals(representation, actual);
+  }
+
+  @Test
+  public void testThatAIsStowedIsDelegated() {
+    final boolean stowed = new Random().nextBoolean();
+    doReturn(stowed).when(delegate).isStowed();
+
+    final boolean actual = telemetryMessage.isStowed();
+
+    verify(delegate).isStowed();
+    assertEquals(stowed, actual);
   }
 }

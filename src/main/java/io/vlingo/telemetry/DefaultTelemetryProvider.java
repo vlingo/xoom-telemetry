@@ -13,9 +13,9 @@ import io.micrometer.jmx.JmxConfig;
 import io.micrometer.jmx.JmxMeterRegistry;
 import io.vlingo.actors.World;
 
-public class JMXRegistryProvider implements RegistryProvider {
+public class DefaultTelemetryProvider implements TelemetryProvider<MeterRegistry> {
   @Override
-  public MeterRegistry provide(final World world) {
-    return new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM);
+  public Telemetry<MeterRegistry> provideFrom(final World world) {
+    return new MicrometerTelemetry(new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM));
   }
 }

@@ -5,21 +5,21 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry.plugin.mailbox;
+package io.vlingo.telemetry;
 
 import io.vlingo.actors.Configuration;
 import io.vlingo.actors.Registrar;
 import io.vlingo.actors.plugin.Plugin;
 import io.vlingo.actors.plugin.PluginConfiguration;
 import io.vlingo.actors.plugin.PluginProperties;
-import io.vlingo.actors.plugin.mailbox.DefaultMailboxProviderKeeper;
-import io.vlingo.telemetry.Telemetry;
 
+import java.io.IOException;
 import java.util.Properties;
 
-public class MailboxTelemetryPlugin implements Plugin {
-  public static class MailboxTelemetryPluginConfiguration implements PluginConfiguration {
+public class TelemetryPlugin implements Plugin {
+  public static class TelemetryPluginConfiguration implements PluginConfiguration {
     private static final String NO_NAME = "_No_Name_";
+    private TelemetryProvider<?> telemetryProvider;
 
     @Override
     public void build(final Configuration configuration) {
@@ -28,27 +28,37 @@ public class MailboxTelemetryPlugin implements Plugin {
 
     @Override
     public void buildWith(final Configuration configuration, final PluginProperties properties) {
+      try {
+        this.telemetryProvider = TelemetryProvider.fromClass(properties.getString("providerClass", "io.vlingo.telemetry.DefaultTelemetryProvider"));
+      } catch (TelemetryProvider.InvalidTelemetryProviderException e) {
+        throw new IllegalStateException(e);
+      }
     }
 
     @Override
     public String name() {
-      return MailboxTelemetryPlugin.class.getSimpleName();
+      return TelemetryPluginConfiguration.class.getSimpleName();
     }
   }
 
-  private final MailboxTelemetryPluginConfiguration configuration;
+  private final TelemetryPluginConfiguration configuration;
+  private Telemetry<?> telemetry;
 
-  public MailboxTelemetryPlugin() {
-    this.configuration = new MailboxTelemetryPluginConfiguration();
+  public TelemetryPlugin() {
+    this.configuration = new TelemetryPluginConfiguration();
   }
 
   @Override
   public void close() {
-
+    try {
+      telemetry.close();
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   @Override
-  public PluginConfiguration configuration() {
+  public TelemetryPluginConfiguration configuration() {
     return configuration;
   }
 
@@ -64,7 +74,11 @@ public class MailboxTelemetryPlugin implements Plugin {
 
   @Override
   public void start(final Registrar registrar) {
-    Telemetry<?> telemetry = Telemetry.from(registrar.world());
-    registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(telemetry)));
+    telemetry = configuration().telemetryProvider.provideFrom(registrar.world());
+    // registrar.world().register("telemetry", telemetry);
+  }
+
+  public Telemetry<?> telemetry() {
+    return telemetry;
   }
 }
