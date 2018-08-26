@@ -57,7 +57,7 @@ public class MailboxTelemetryPlugin implements Plugin {
 
   @Override
   public void start(final Registrar registrar) {
-    Telemetry<?> telemetry = null; // registrar.world().telemetry();
+    Telemetry<?> telemetry = Telemetry.from(registrar.world());
     registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(telemetry)));
   }
 }

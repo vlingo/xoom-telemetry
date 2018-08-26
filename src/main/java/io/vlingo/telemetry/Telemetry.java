@@ -1,9 +1,11 @@
 package io.vlingo.telemetry;
 
+import io.vlingo.actors.World;
+
 import java.io.Closeable;
 import java.util.concurrent.Callable;
 
-public interface Telemetry<UNDERLYING> extends Closeable  {
+public interface Telemetry<UNDERLYING> extends Closeable {
   final class Tag {
     private final String name;
     private final String value;
@@ -31,4 +33,8 @@ public interface Telemetry<UNDERLYING> extends Closeable  {
   void count(final String counterName, final Integer actualCount, final Tag... tags);
   void gauge(final String gaugeName, final Integer deltaCount, final Tag... tags);
   <RETURN> RETURN time(final String timerName, final Callable<RETURN> callable, final Tag... tags) throws Exception;
+
+  static Telemetry<?> from(final World world) {
+    return null;
+  }
 }
