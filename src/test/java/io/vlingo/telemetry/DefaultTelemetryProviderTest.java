@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class DefaultTelemetryProviderTest extends ActorsTest  {
-  private TelemetryProvider defaultTelemetryProvider;
+  private TelemetryProvider<?> defaultTelemetryProvider;
 
   @Before
   public void setUp() throws Exception {
@@ -26,7 +26,7 @@ public class DefaultTelemetryProviderTest extends ActorsTest  {
 
   @Test
   public void testThatProvidesAMicrometerRegistry() {
-    Telemetry telemetry = defaultTelemetryProvider.provideFrom(world);
+    Telemetry<?> telemetry = defaultTelemetryProvider.provideFrom(world);
 
     assertTrue(telemetry instanceof MicrometerTelemetry);
     assertTrue(telemetry.underlying() instanceof JmxMeterRegistry);
