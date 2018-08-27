@@ -1,33 +1,33 @@
 {
     "package": {
-        "name": "vlingo-actors",
+        "name": "vlingo-telemetry",
         "repo": "vlingo-platform-java",
         "subject": "vlingo",
-        "desc": "Type safe Actor Model toolkit for reactive concurrency and resiliency using Java and other JVM languages.",
-        "website_url": "https://github.com/vlingo/vlingo-actors",
-        "issue_tracker_url": "https://github.com/vlingo/vlingo-actors/issues",
-        "vcs_url": "https://github.com/vlingo/vlingo-actors.git",
+        "desc": "The reactive metrics collector plugin for the vlingo/platform, including support for vlingo/actors, vlingo/http, vlingo/lattice, vlingo/streams, and others.",
+        "website_url": "https://github.com/vlingo/vlingo-telemetry",
+        "issue_tracker_url": "https://github.com/vlingo/vlingo-telemetry/issues",
+        "vcs_url": "https://github.com/vlingo/vlingo-telemetry.git",
         "licenses": ["MPL-2.0"],
         "public_download_numbers": true,
         "public_stats": true
     },
 
     "version": {
-        "name": "0.5.9",
+        "name": "0.3.0",
         "gpgSign": true
     },
 
     "files": [
         {
             "includePattern": "target/(.*).jar",
-            "uploadPattern": "/io/vlingo/vlingo-actors/0.5.9/$1.jar",
+            "uploadPattern": "/io/vlingo/vlingo-telemetry/0.3.0/$1.jar",
             "matrixParams": {
                 "override": 1
             }
         },
         {
             "includePattern": "pom.xml",
-            "uploadPattern": "/io/vlingo/vlingo-actors/0.5.9/vlingo-actors-0.5.9.pom",
+            "uploadPattern": "/io/vlingo/vlingo-telemetry/0.3.0/vlingo-telemetry-0.3.0.pom",
             "matrixParams": {
                 "override": 1
             }
