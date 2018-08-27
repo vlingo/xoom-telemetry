@@ -25,9 +25,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/vlingo/vlingo-actors.git</connection>
-    <developerConnection>scm:git:ssh://github.com/vlingo/vlingo-actors.git</developerConnection>
-    <url>http://github.com/vlingo/vlingo-actors/tree/master</url>
+    <connection>scm:git:git://github.com/vlingo/vlingo-telemetry.git</connection>
+    <developerConnection>scm:git:ssh://github.com/vlingo/vlingo-telemetry.git</developerConnection>
+    <url>http://github.com/vlingo/vlingo-telemetry/tree/master</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
