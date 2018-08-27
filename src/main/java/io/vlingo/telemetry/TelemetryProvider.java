@@ -14,11 +14,14 @@ public interface TelemetryProvider<UNDERLYING> {
   Telemetry<UNDERLYING> provideFrom(final World world);
 
   class InvalidTelemetryProviderException extends Exception {
+    private static final long serialVersionUID = 1L;
+
     InvalidTelemetryProviderException(final String className, final Throwable cause) {
       super(className + " is not a valid TelemetryProvider.", cause);
     }
   }
 
+  @SuppressWarnings("unchecked")
   static <UNDERLYING> TelemetryProvider<UNDERLYING> fromClass(final String className) throws TelemetryProvider.InvalidTelemetryProviderException {
     try {
       Class<? extends TelemetryProvider<UNDERLYING>> providerClass = (Class<? extends TelemetryProvider<UNDERLYING>>) Class.forName(className);
