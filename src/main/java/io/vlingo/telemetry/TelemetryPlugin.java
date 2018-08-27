@@ -75,7 +75,7 @@ public class TelemetryPlugin implements Plugin {
   @Override
   public void start(final Registrar registrar) {
     telemetry = configuration().telemetryProvider.provideFrom(registrar.world());
-    // registrar.world().register("telemetry", telemetry);
+    registrar.world().registerDynamic("telemetry", telemetry);
   }
 
   public Telemetry<?> telemetry() {

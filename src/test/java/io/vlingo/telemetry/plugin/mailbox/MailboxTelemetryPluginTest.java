@@ -7,24 +7,29 @@
 
 package io.vlingo.telemetry.plugin.mailbox;
 
+import io.vlingo.ActorsTest;
 import io.vlingo.actors.Configuration;
 import io.vlingo.actors.Registrar;
+import io.vlingo.telemetry.DefaultTelemetryProvider;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
-public class MailboxTelemetryPluginTest {
+public class MailboxTelemetryPluginTest extends ActorsTest {
   private Registrar registrar;
   private MailboxTelemetryPlugin plugin;
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
+    super.setUp();
+
     registrar = mock(Registrar.class);
     plugin = new MailboxTelemetryPlugin();
 
+    world.registerDynamic("telemetry", new DefaultTelemetryProvider().provideFrom(world));
+    doReturn(world).when(registrar).world();
     plugin.configuration().build(Configuration.define());
   }
 

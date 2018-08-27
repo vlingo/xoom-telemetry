@@ -42,6 +42,6 @@ public interface Telemetry<UNDERLYING> extends Closeable {
   <RETURN> RETURN time(final String timerName, final Callable<RETURN> callable, final Tag... tags) throws Exception;
 
   static Telemetry<?> from(final World world) {
-    return null;
+    return world.resolveDynamic("telemetry", Telemetry.class);
   }
 }
