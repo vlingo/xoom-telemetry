@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.vlingo</groupId>
   <artifactId>vlingo-telemetry</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1</version>
   <name>vlingo-telemetry</name>
   <description>The reactive metrics collector plugin for the vlingo/platform, including support for vlingo/actors, vlingo/http, vlingo/lattice, vlingo/streams, and others.</description>
   <url>https://github.com/vlingo/vlingo-telemetry</url>
@@ -88,22 +88,22 @@
       <version>1.10.19</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-        <groupId>io.vlingo</groupId>
-        <artifactId>vlingo-actors</artifactId>
-        <version>0.5.9</version>
-      </dependency>
-      <dependency>
-        <groupId>io.micrometer</groupId>
-        <artifactId>micrometer-core</artifactId>
-        <version>1.0.6</version>
-      </dependency>
-      <dependency>
-        <groupId>io.micrometer</groupId>
-        <artifactId>micrometer-registry-jmx</artifactId>
-        <version>1.0.6</version>
-      </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>io.vlingo</groupId>
+      <artifactId>vlingo-actors</artifactId>
+      <version>0.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+      <version>1.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-jmx</artifactId>
+      <version>1.0.6</version>
+    </dependency>
+  </dependencies>
   <distributionManagement>
     <repository>
       <id>bintray-vlingo-vlingo-platform-java</id>
