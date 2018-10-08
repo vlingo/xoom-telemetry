@@ -7,7 +7,10 @@
 
 package io.vlingo.telemetry.plugin.mailbox;
 
+import java.util.function.Consumer;
+
 import io.vlingo.actors.Actor;
+import io.vlingo.actors.Completes;
 import io.vlingo.actors.Message;
 
 public class TelemetryMessage implements Message {
@@ -42,5 +45,10 @@ public class TelemetryMessage implements Message {
   @Override
   public boolean isStowed() {
     return delegate.isStowed();
+  }
+
+  @Override
+  public void set(final Actor actor, final Class<?> protocol, final Consumer<?> consumer, final Completes<?> completes, final String representation) {
+    delegate.set(actor, protocol, consumer, completes, representation);
   }
 }
