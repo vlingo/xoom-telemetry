@@ -10,8 +10,8 @@ package io.vlingo.telemetry.plugin.mailbox;
 import java.util.function.Consumer;
 
 import io.vlingo.actors.Actor;
-import io.vlingo.actors.Completes;
 import io.vlingo.actors.Message;
+import io.vlingo.common.Completes;
 
 public class TelemetryMessage implements Message {
   private final Message delegate;
