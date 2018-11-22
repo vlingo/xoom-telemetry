@@ -67,6 +67,11 @@ public class TelemetryMailbox implements Mailbox {
   }
 
   @Override
+  public int pendingMessages() {
+    return delegate.pendingMessages();
+  }
+
+  @Override
   public void run() {
     delegate.run();
   }
