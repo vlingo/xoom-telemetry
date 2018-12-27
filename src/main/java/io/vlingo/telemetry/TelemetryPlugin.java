@@ -45,7 +45,7 @@ public class TelemetryPlugin implements Plugin {
   private Telemetry<?> telemetry;
 
   public TelemetryPlugin() {
-    this.configuration = new TelemetryPluginConfiguration();
+    this(new TelemetryPluginConfiguration());
   }
 
   @Override
@@ -78,7 +78,19 @@ public class TelemetryPlugin implements Plugin {
     registrar.world().registerDynamic("telemetry", telemetry);
   }
 
+  @Override
+  public Plugin with(final PluginConfiguration overrideConfiguration) {
+    if (overrideConfiguration == null) {
+      return this;
+    }
+    return new TelemetryPlugin((TelemetryPluginConfiguration) overrideConfiguration);
+  }
+
   public Telemetry<?> telemetry() {
     return telemetry;
+  }
+
+  private TelemetryPlugin(final TelemetryPluginConfiguration configuration) {
+    this.configuration = configuration;
   }
 }
