@@ -39,7 +39,7 @@ public class MailboxTelemetryPlugin implements Plugin {
   private final MailboxTelemetryPluginConfiguration configuration;
 
   public MailboxTelemetryPlugin() {
-    this.configuration = new MailboxTelemetryPluginConfiguration();
+    this(new MailboxTelemetryPluginConfiguration());
   }
 
   @Override
@@ -66,5 +66,17 @@ public class MailboxTelemetryPlugin implements Plugin {
   public void start(final Registrar registrar) {
     Telemetry<?> telemetry = Telemetry.from(registrar.world());
     registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(telemetry)));
+  }
+
+  @Override
+  public Plugin with(final PluginConfiguration overrideConfiguration) {
+    if (overrideConfiguration == null) {
+      return this;
+    }
+    return new MailboxTelemetryPlugin((MailboxTelemetryPluginConfiguration) overrideConfiguration);
+  }
+
+  private MailboxTelemetryPlugin(final MailboxTelemetryPluginConfiguration configuration) {
+    this.configuration = configuration;
   }
 }
