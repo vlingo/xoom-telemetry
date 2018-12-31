@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.vlingo</groupId>
   <artifactId>vlingo-telemetry</artifactId>
-  <version>0.7.6</version>
+  <version>0.7.7</version>
   <name>vlingo-telemetry</name>
   <description>The reactive metrics collector plugin for the vlingo/platform, including support for vlingo/actors, vlingo/http, vlingo/lattice, vlingo/streams, and others.</description>
   <url>https://github.com/vlingo/vlingo-telemetry</url>
@@ -91,7 +91,7 @@
     <dependency>
       <groupId>io.vlingo</groupId>
       <artifactId>vlingo-actors</artifactId>
-      <version>0.7.6</version>
+      <version>0.7.7</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
