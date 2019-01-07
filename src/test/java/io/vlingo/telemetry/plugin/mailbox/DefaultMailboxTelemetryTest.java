@@ -43,8 +43,8 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
 
     addressOfActor = UUID.randomUUID().toString();
     final Actor receiver = testWorld.actorFor(
-        Definition.has(RandomActor.class, Definition.NoParameters, addressOfActor),
-        NoProtocol.class
+            NoProtocol.class,
+        Definition.has(RandomActor.class, Definition.NoParameters, addressOfActor)
     ).actorInside();
 
     message = mock(Message.class);
