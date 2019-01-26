@@ -17,7 +17,7 @@ The reactive metrics collector plugin for the vlingo/platform, including support
     <dependency>
       <groupId>io.vlingo</groupId>
       <artifactId>vlingo-telemetry</artifactId>
-      <version>0.7.9</version>
+      <version>0.8.0</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -25,7 +25,7 @@ The reactive metrics collector plugin for the vlingo/platform, including support
 
 ```gradle
 dependencies {
-    compile 'io.vlingo:vlingo-telemetry:0.7.9'
+    compile 'io.vlingo:vlingo-telemetry:0.8.0'
 }
 
 repositories {
