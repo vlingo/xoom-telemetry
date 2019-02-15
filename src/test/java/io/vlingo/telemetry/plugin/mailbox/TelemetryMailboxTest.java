@@ -123,17 +123,6 @@ public class TelemetryMailboxTest {
   }
 
   @Test
-  public void testThatDeliveringIsDelegated() {
-    boolean delivering = new Random().nextBoolean();
-
-    doReturn(delivering).when(delegate).delivering(delivering);
-    boolean result = telemetryMailbox.delivering(delivering);
-
-    verify(delegate).delivering(delivering);
-    assertEquals(delivering, result);
-  }
-
-  @Test
   public void testThatRunIsDelegated() {
     telemetryMailbox.run();
     verify(delegate).run();
