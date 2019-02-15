@@ -35,11 +35,6 @@ public class TelemetryMailbox implements Mailbox {
   }
 
   @Override
-  public boolean delivering(final boolean flag) {
-    return delegate.delivering(flag);
-  }
-
-  @Override
   public void send(final Message message) {
     try {
       delegate.send(new TelemetryMessage(message, telemetry));
