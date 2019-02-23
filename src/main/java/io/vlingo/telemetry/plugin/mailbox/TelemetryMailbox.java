@@ -35,6 +35,11 @@ public class TelemetryMailbox implements Mailbox {
   }
 
   @Override
+  public void resume(final String name) {
+    delegate.resume(name);
+  }
+
+  @Override
   public void send(final Message message) {
     try {
       delegate.send(new TelemetryMessage(message, telemetry));
@@ -42,6 +47,16 @@ public class TelemetryMailbox implements Mailbox {
     } catch (Exception e) {
       telemetry.onSendMessageFailed(message, e);
     }
+  }
+
+  @Override
+  public void suspendExceptFor(final String name, final Class<?>... overrides) {
+    delegate.suspendExceptFor(name, overrides);
+  }
+
+  @Override
+  public boolean isSuspended() {
+    return delegate.isSuspended();
   }
 
   @Override

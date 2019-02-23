@@ -38,6 +38,11 @@ public class TelemetryMessage implements Message {
   }
 
   @Override
+  public Class<?> protocol() {
+    return delegate.protocol();
+  }
+
+  @Override
   public String representation() {
     return delegate.representation();
   }
