@@ -7,16 +7,22 @@
 
 package io.vlingo.telemetry;
 
-import io.micrometer.core.instrument.*;
-import io.micrometer.jmx.JmxConfig;
-import io.micrometer.jmx.JmxMeterRegistry;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
+import io.micrometer.jmx.JmxConfig;
+import io.micrometer.jmx.JmxMeterRegistry;
 
 public class MicrometerTelemetryTest {
   private static final String RANDOM_NAME = UUID.randomUUID().toString();
@@ -63,7 +69,7 @@ public class MicrometerTelemetryTest {
 
     Timer timer = meterRegistry.get(RANDOM_NAME).tag(RANDOM_TAG, RANDOM_TAG_VALUE).timer();
 
-    assertEquals(RANDOM_COUNT, result);
-    assertEquals(RANDOM_COUNT, timer.totalTime(TimeUnit.MILLISECONDS), 9); // around 10 (1-19)
+    assertTrue(result >= RANDOM_COUNT);
+    assertTrue(timer.totalTime(TimeUnit.MILLISECONDS) >= RANDOM_COUNT);
   }
 }
