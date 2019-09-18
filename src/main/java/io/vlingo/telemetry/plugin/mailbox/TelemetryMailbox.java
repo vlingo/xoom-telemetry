@@ -35,6 +35,11 @@ public class TelemetryMailbox implements Mailbox {
   }
 
   @Override
+  public int concurrencyCapacity() {
+    return delegate.concurrencyCapacity();
+  }
+
+  @Override
   public void resume(final String name) {
     delegate.resume(name);
   }
