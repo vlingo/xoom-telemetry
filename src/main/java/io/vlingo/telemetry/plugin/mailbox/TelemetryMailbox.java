@@ -64,7 +64,7 @@ public class TelemetryMailbox implements Mailbox {
   }
 
   @Override
-  public void send(Actor actor, Class<?> protocol, Consumer<?> consumer, Returns<?> returns, String representation) {
+  public <T> void send(Actor actor, Class<T> protocol, Consumer<T> consumer, Returns<?> returns, String representation) {
     try {
       delegate.send(actor, protocol, consumer, returns, representation);
       telemetry.onSendMessage(actor);
