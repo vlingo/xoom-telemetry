@@ -56,10 +56,10 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
 
   @Test
   public void testThatSendAndReceiveRegistersACounterOnTheActorsMailbox() {
-    telemetry.onSendMessage(message);
+    telemetry.onSendMessage(message.actor());
     assertPendingMessagesNumberIs(1);
 
-    telemetry.onReceiveMessage(message);
+    telemetry.onReceiveMessage(message.actor());
     assertPendingMessagesNumberIs(0);
   }
 
@@ -71,7 +71,7 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
 
   @Test
   public void testThatFailedSentsAreCounted() {
-    telemetry.onSendMessageFailed(message, expectedException());
+    telemetry.onSendMessageFailed(message.actor(), expectedException());
     assertFailuresAre(1, DefaultMailboxTelemetry.FAILED_SEND);
     assertIllegalStateExceptionCount(1);
   }
@@ -84,7 +84,7 @@ public class DefaultMailboxTelemetryTest extends ActorsTest {
 
   @Test
   public void testThatDeliveringFailuresAreCountedFromMessage() {
-    telemetry.onDeliverMessageFailed(message, expectedException());
+    telemetry.onDeliverMessageFailed(message.actor(), expectedException());
 
     assertFailuresAre(1, DefaultMailboxTelemetry.FAILED_DELIVER);
     assertIllegalStateExceptionCount(1);

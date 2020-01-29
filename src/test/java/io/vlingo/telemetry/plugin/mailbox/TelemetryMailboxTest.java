@@ -73,7 +73,7 @@ public class TelemetryMailboxTest {
     Message notNullMessage = telemetryMailbox.receive();
 
     verify(delegate).receive();
-    verify(telemetry).onReceiveMessage(message);
+    verify(telemetry).onReceiveMessage(message.actor());
     verify(telemetry, never()).onReceiveEmptyMailbox();
 
     assertEquals(message, notNullMessage);
