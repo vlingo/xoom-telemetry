@@ -31,9 +31,9 @@ public class TelemetryMessage implements Message {
   public void deliver() {
     try {
       delegate.deliver();
-      telemetry.onReceiveMessage(delegate);
+      telemetry.onReceiveMessage(delegate.actor());
     } catch (RuntimeException ex) {
-      telemetry.onDeliverMessageFailed(delegate, ex);
+      telemetry.onDeliverMessageFailed(delegate.actor(), ex);
     }
   }
 

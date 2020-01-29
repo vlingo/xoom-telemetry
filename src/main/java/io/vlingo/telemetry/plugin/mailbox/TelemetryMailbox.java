@@ -7,8 +7,12 @@
 
 package io.vlingo.telemetry.plugin.mailbox;
 
+import io.vlingo.actors.Actor;
 import io.vlingo.actors.Mailbox;
 import io.vlingo.actors.Message;
+import io.vlingo.actors.Returns;
+
+import java.util.function.Consumer;
 
 public class TelemetryMailbox implements Mailbox {
   private final MailboxTelemetry telemetry;
@@ -48,9 +52,24 @@ public class TelemetryMailbox implements Mailbox {
   public void send(final Message message) {
     try {
       delegate.send(new TelemetryMessage(message, telemetry));
-      telemetry.onSendMessage(message);
+      telemetry.onSendMessage(message.actor());
     } catch (Exception e) {
-      telemetry.onSendMessageFailed(message, e);
+      telemetry.onSendMessageFailed(message.actor(), e);
+    }
+  }
+
+  @Override
+  public boolean isPreallocated() {
+    return delegate.isPreallocated();
+  }
+
+  @Override
+  public void send(Actor actor, Class<?> protocol, Consumer<?> consumer, Returns<?> returns, String representation) {
+    try {
+      delegate.send(actor, protocol, consumer, returns, representation);
+      telemetry.onSendMessage(actor);
+    } catch (Exception e) {
+      telemetry.onSendMessageFailed(actor, e);
     }
   }
 
@@ -71,7 +90,7 @@ public class TelemetryMailbox implements Mailbox {
       if (receivedMessage == null) {
         telemetry.onReceiveEmptyMailbox();
       } else {
-        telemetry.onReceiveMessage(receivedMessage);
+        telemetry.onReceiveMessage(receivedMessage.actor());
       }
 
       return receivedMessage;

@@ -47,7 +47,7 @@ public class TelemetryMessageTest {
     telemetryMessage.deliver();
 
     verify(delegate).deliver();
-    verify(telemetry).onReceiveMessage(delegate);
+    verify(telemetry).onReceiveMessage(delegate.actor());
   }
 
   @Test
@@ -58,8 +58,8 @@ public class TelemetryMessageTest {
     telemetryMessage.deliver();
 
     verify(delegate).deliver();
-    verify(telemetry, never()).onReceiveMessage(delegate);
-    verify(telemetry).onDeliverMessageFailed(delegate, exception);
+    verify(telemetry, never()).onReceiveMessage(delegate.actor());
+    verify(telemetry).onDeliverMessageFailed(delegate.actor(), exception);
   }
 
   @Test
