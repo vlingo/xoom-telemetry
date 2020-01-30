@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 import io.vlingo.actors.Actor;
 import io.vlingo.actors.Message;
 import io.vlingo.actors.Returns;
+import io.vlingo.common.SerializableConsumer;
 
 public class TelemetryMessage implements Message {
   private final Message delegate;
@@ -53,7 +54,7 @@ public class TelemetryMessage implements Message {
   }
 
   @Override
-  public void set(final Actor actor, final Class<?> protocol, final Consumer<?> consumer, final Returns<?> returns, final String representation) {
+  public void set(final Actor actor, final Class<?> protocol, final SerializableConsumer<?> consumer, final Returns<?> returns, final String representation) {
     delegate.set(actor, protocol, consumer, returns, representation);
   }
 }

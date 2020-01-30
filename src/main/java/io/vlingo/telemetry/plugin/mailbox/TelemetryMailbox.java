@@ -11,6 +11,7 @@ import io.vlingo.actors.Actor;
 import io.vlingo.actors.Mailbox;
 import io.vlingo.actors.Message;
 import io.vlingo.actors.Returns;
+import io.vlingo.common.SerializableConsumer;
 
 import java.util.function.Consumer;
 
@@ -64,7 +65,7 @@ public class TelemetryMailbox implements Mailbox {
   }
 
   @Override
-  public void send(Actor actor, Class<?> protocol, Consumer<?> consumer, Returns<?> returns, String representation) {
+  public void send(Actor actor, Class<?> protocol, SerializableConsumer<?> consumer, Returns<?> returns, String representation) {
     try {
       delegate.send(actor, protocol, consumer, returns, representation);
       telemetry.onSendMessage(actor);
