@@ -7,8 +7,6 @@
 
 package io.vlingo.telemetry.plugin.mailbox;
 
-import java.util.function.Consumer;
-
 import io.vlingo.actors.Actor;
 import io.vlingo.actors.Message;
 import io.vlingo.actors.Returns;

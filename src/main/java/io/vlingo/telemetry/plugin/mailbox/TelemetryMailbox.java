@@ -13,8 +13,6 @@ import io.vlingo.actors.Message;
 import io.vlingo.actors.Returns;
 import io.vlingo.common.SerializableConsumer;
 
-import java.util.function.Consumer;
-
 public class TelemetryMailbox implements Mailbox {
   private final MailboxTelemetry telemetry;
   private final Mailbox delegate;
