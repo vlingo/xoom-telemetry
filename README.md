@@ -17,7 +17,7 @@ The vlingo/PLATFORM reactive metrics collector plugin supporting vlingo/actors, 
     <dependency>
       <groupId>io.vlingo</groupId>
       <artifactId>vlingo-telemetry</artifactId>
-      <version>1.2.6</version>
+      <version>1.2.7</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -25,7 +25,7 @@ The vlingo/PLATFORM reactive metrics collector plugin supporting vlingo/actors, 
 
 ```gradle
 dependencies {
-    compile 'io.vlingo:vlingo-telemetry:1.2.6'
+    compile 'io.vlingo:vlingo-telemetry:1.2.7'
 }
 
 repositories {
