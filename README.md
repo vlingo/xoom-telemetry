@@ -2,7 +2,7 @@
 
 [![Javadocs](http://javadoc.io/badge/io.vlingo/vlingo-telemetry.svg?color=brightgreen)](http://javadoc.io/doc/io.vlingo/vlingo-telemetry) [![Build Status](https://travis-ci.org/vlingo/vlingo-telemetry.svg?branch=master)](https://travis-ci.org/vlingo/vlingo-telemetry) [ ![Download](https://api.bintray.com/packages/vlingo/vlingo-platform-java/vlingo-telemetry/images/download.svg) ](https://bintray.com/vlingo/vlingo-platform-java/vlingo-telemetry/_latestVersion) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/vlingo-platform-java/community)
 
-The vlingo/PLATFORM reactive metrics collector plugin supporting vlingo/actors, vlingo/http, vlingo/lattice, vlingo/streams, and others.
+The VLINGO/PLATFORM reactive metrics collector plugin supporting VLINGO/ACTORS, VLINGO/HTTP, VLINGO/LATTICE, VLINGO/STREAMS, and others.
 
 ### Bintray
 
@@ -17,7 +17,7 @@ The vlingo/PLATFORM reactive metrics collector plugin supporting vlingo/actors, 
     <dependency>
       <groupId>io.vlingo</groupId>
       <artifactId>vlingo-telemetry</artifactId>
-      <version>1.2.9</version>
+      <version>1.3.0</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -25,7 +25,7 @@ The vlingo/PLATFORM reactive metrics collector plugin supporting vlingo/actors, 
 
 ```gradle
 dependencies {
-    compile 'io.vlingo:vlingo-telemetry:1.2.9'
+    compile 'io.vlingo:vlingo-telemetry:1.3.0'
 }
 
 repositories {
