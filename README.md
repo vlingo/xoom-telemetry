@@ -4,6 +4,8 @@
 
 The VLINGO/PLATFORM reactive metrics collector plugin supporting VLINGO/ACTORS, VLINGO/HTTP, VLINGO/LATTICE, VLINGO/STREAMS, and others.
 
+Docs: https://docs.vlingo.io/vlingo-telemetry
+
 ### Bintray
 
 ```xml
