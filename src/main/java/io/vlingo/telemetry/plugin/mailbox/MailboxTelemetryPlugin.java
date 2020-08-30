@@ -7,6 +7,8 @@
 
 package io.vlingo.telemetry.plugin.mailbox;
 
+import java.util.Properties;
+
 import io.vlingo.actors.Configuration;
 import io.vlingo.actors.Registrar;
 import io.vlingo.actors.plugin.Plugin;
@@ -14,8 +16,6 @@ import io.vlingo.actors.plugin.PluginConfiguration;
 import io.vlingo.actors.plugin.PluginProperties;
 import io.vlingo.actors.plugin.mailbox.DefaultMailboxProviderKeeper;
 import io.vlingo.telemetry.Telemetry;
-
-import java.util.Properties;
 
 public class MailboxTelemetryPlugin implements Plugin {
   public static class MailboxTelemetryPluginConfiguration implements PluginConfiguration {
@@ -74,6 +74,11 @@ public class MailboxTelemetryPlugin implements Plugin {
       return this;
     }
     return new MailboxTelemetryPlugin((MailboxTelemetryPluginConfiguration) overrideConfiguration);
+  }
+
+  @Override
+  public void __internal_Only_Init(final String name, final Configuration configuration, final Properties properties) {
+    // no-op
   }
 
   private MailboxTelemetryPlugin(final MailboxTelemetryPluginConfiguration configuration) {

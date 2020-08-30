@@ -7,14 +7,14 @@
 
 package io.vlingo.telemetry;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import io.vlingo.actors.Configuration;
 import io.vlingo.actors.Registrar;
 import io.vlingo.actors.plugin.Plugin;
 import io.vlingo.actors.plugin.PluginConfiguration;
 import io.vlingo.actors.plugin.PluginProperties;
-
-import java.io.IOException;
-import java.util.Properties;
 
 public class TelemetryPlugin implements Plugin {
   public static class TelemetryPluginConfiguration implements PluginConfiguration {
@@ -84,6 +84,11 @@ public class TelemetryPlugin implements Plugin {
       return this;
     }
     return new TelemetryPlugin((TelemetryPluginConfiguration) overrideConfiguration);
+  }
+
+  @Override
+  public void __internal_Only_Init(final String name, final Configuration configuration, final Properties properties) {
+    // no-op
   }
 
   public Telemetry<?> telemetry() {
