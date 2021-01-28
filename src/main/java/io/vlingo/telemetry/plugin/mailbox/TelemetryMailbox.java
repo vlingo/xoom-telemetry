@@ -12,14 +12,17 @@ import io.vlingo.actors.Mailbox;
 import io.vlingo.actors.Message;
 import io.vlingo.actors.Returns;
 import io.vlingo.common.SerializableConsumer;
+import io.vlingo.telemetry.tracing.TracingBaggage;
 
 public class TelemetryMailbox implements Mailbox {
   private final MailboxTelemetry telemetry;
   private final Mailbox delegate;
+  private final TracingBaggage baggage;
 
-  public TelemetryMailbox(final MailboxTelemetry telemetry, final Mailbox delegate) {
+  public TelemetryMailbox(final MailboxTelemetry telemetry, final Mailbox delegate, final TracingBaggage baggage) {
     this.telemetry = telemetry;
     this.delegate = delegate;
+    this.baggage = baggage;
   }
 
   @Override
@@ -50,7 +53,7 @@ public class TelemetryMailbox implements Mailbox {
   @Override
   public void send(final Message message) {
     try {
-      delegate.send(new TelemetryMessage(message, telemetry));
+      delegate.send(new TelemetryMessage(message, telemetry, baggage));
       telemetry.onSendMessage(message.actor());
     } catch (Exception e) {
       telemetry.onSendMessageFailed(message.actor(), e);

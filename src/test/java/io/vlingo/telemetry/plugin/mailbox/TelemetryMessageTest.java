@@ -28,7 +28,7 @@ public class TelemetryMessageTest {
     delegate = mock(Message.class);
     telemetry = mock(MailboxTelemetry.class);
 
-    telemetryMessage = new TelemetryMessage(delegate, telemetry);
+    telemetryMessage = new TelemetryMessage(delegate, telemetry, null);
   }
 
   @Test
