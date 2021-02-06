@@ -36,7 +36,7 @@ public class TelemetryMailboxProviderKeeperTest {
     telemetry = mock(MailboxTelemetry.class);
     provider = mock(MailboxProvider.class);
 
-    telemetryMailboxProviderKeeper = new TelemetryMailboxProviderKeeper(delegate, telemetry);
+    telemetryMailboxProviderKeeper = new TelemetryMailboxProviderKeeper(delegate, telemetry, null);
   }
 
   @Test

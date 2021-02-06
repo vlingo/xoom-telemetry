@@ -10,14 +10,17 @@ package io.vlingo.telemetry.plugin.mailbox;
 import io.vlingo.actors.Mailbox;
 import io.vlingo.actors.MailboxProvider;
 import io.vlingo.actors.MailboxProviderKeeper;
+import io.vlingo.telemetry.tracing.TracingBaggage;
 
 public class TelemetryMailboxProviderKeeper implements MailboxProviderKeeper {
   private final MailboxProviderKeeper delegate;
   private final MailboxTelemetry telemetry;
+  private final TracingBaggage baggage;
 
-  public TelemetryMailboxProviderKeeper(final MailboxProviderKeeper delegate, final MailboxTelemetry telemetry) {
+  public TelemetryMailboxProviderKeeper(final MailboxProviderKeeper delegate, final MailboxTelemetry telemetry, final TracingBaggage baggage) {
     this.delegate = delegate;
     this.telemetry = telemetry;
+    this.baggage = baggage;
   }
 
   @Override
@@ -37,7 +40,7 @@ public class TelemetryMailboxProviderKeeper implements MailboxProviderKeeper {
 
   @Override
   public void keep(final String name, final boolean isDefault, final MailboxProvider mailboxProvider) {
-    delegate.keep(name, isDefault, new TelemetryMailboxProvider(telemetry, mailboxProvider));
+    delegate.keep(name, isDefault, new TelemetryMailboxProvider(telemetry, mailboxProvider, baggage));
   }
 
   @Override

@@ -9,6 +9,8 @@ package io.vlingo.telemetry.plugin.mailbox;
 
 import java.util.Properties;
 
+import brave.Tracer;
+import brave.Tracing;
 import io.vlingo.actors.Configuration;
 import io.vlingo.actors.Registrar;
 import io.vlingo.actors.plugin.Plugin;
@@ -16,6 +18,10 @@ import io.vlingo.actors.plugin.PluginConfiguration;
 import io.vlingo.actors.plugin.PluginProperties;
 import io.vlingo.actors.plugin.mailbox.DefaultMailboxProviderKeeper;
 import io.vlingo.telemetry.Telemetry;
+import io.vlingo.telemetry.tracing.TracingBaggage;
+import zipkin2.reporter.brave.AsyncZipkinSpanHandler;
+import zipkin2.reporter.brave.ZipkinSpanHandler;
+import zipkin2.reporter.okhttp3.OkHttpSender;
 
 public class MailboxTelemetryPlugin implements Plugin {
   public static class MailboxTelemetryPluginConfiguration implements PluginConfiguration {
@@ -65,7 +71,21 @@ public class MailboxTelemetryPlugin implements Plugin {
   @Override
   public void start(final Registrar registrar) {
     Telemetry<?> telemetry = Telemetry.from(registrar.world());
-    registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(telemetry)));
+    OkHttpSender sender = OkHttpSender.create("http://127.0.0.1:9411/api/v2/spans");
+//   (this dependency is io.zipkin.reporter2:zipkin-reporter-brave)
+    ZipkinSpanHandler zipkinSpanHandler = AsyncZipkinSpanHandler.create(sender);
+
+// Create a tracing component with the service name you want to see in Zipkin.
+    Tracing tracing = Tracing.newBuilder()
+            .traceId128Bit(true)
+            .addSpanHandler(zipkinSpanHandler)
+            .build();
+
+// Tracing exposes objects you might need, most importantly the tracer
+    Tracer tracer = tracing.tracer();
+    TracingBaggage baggage = TracingBaggage.withTracer(tracer);
+
+    registrar.registerMailboxProviderKeeper(new TelemetryMailboxProviderKeeper(new DefaultMailboxProviderKeeper(), new DefaultMailboxTelemetry(telemetry), baggage));
   }
 
   @Override

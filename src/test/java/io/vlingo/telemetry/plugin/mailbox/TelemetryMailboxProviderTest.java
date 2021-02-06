@@ -34,7 +34,7 @@ public class TelemetryMailboxProviderTest {
     telemetry = mock(MailboxTelemetry.class);
     dispatcher = mock(Dispatcher.class);
 
-    telemetryMailboxProvider = new TelemetryMailboxProvider(telemetry, delegate);
+    telemetryMailboxProvider = new TelemetryMailboxProvider(telemetry, delegate, null);
 
     doReturn(delegateMailbox).when(delegate).provideMailboxFor(anyInt());
     doReturn(delegateMailbox).when(delegate).provideMailboxFor(anyInt(), any());

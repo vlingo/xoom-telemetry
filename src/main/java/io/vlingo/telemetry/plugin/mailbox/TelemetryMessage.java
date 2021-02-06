@@ -11,14 +11,20 @@ import io.vlingo.actors.Actor;
 import io.vlingo.actors.Message;
 import io.vlingo.actors.Returns;
 import io.vlingo.common.SerializableConsumer;
+import io.vlingo.telemetry.tracing.TracingBaggage;
+import io.vlingo.telemetry.tracing.TracingContext;
 
 public class TelemetryMessage implements Message {
   private final Message delegate;
   private final MailboxTelemetry telemetry;
+  private final TracingBaggage tracingBaggage;
+  private final TracingContext tracingContext;
 
-  public TelemetryMessage(final Message delegate, final MailboxTelemetry telemetry) {
+  public TelemetryMessage(final Message delegate, final MailboxTelemetry telemetry, final TracingBaggage tracingBaggage) {
     this.delegate = delegate;
     this.telemetry = telemetry;
+    this.tracingBaggage = tracingBaggage;
+    this.tracingContext = tracingBaggage != null ? tracingBaggage.baggageState() : null;
   }
 
   @Override
@@ -26,13 +32,21 @@ public class TelemetryMessage implements Message {
     return delegate.actor();
   }
 
+  public TracingContext tracingContext() {
+    return tracingContext;
+  }
+
   @Override
   public void deliver() {
+    TracingContext nextTracingContext = tracingBaggage.storeInBaggage(this);
     try {
       delegate.deliver();
       telemetry.onReceiveMessage(delegate.actor());
     } catch (RuntimeException ex) {
       telemetry.onDeliverMessageFailed(delegate.actor(), ex);
+      nextTracingContext.failed(ex);
+    } finally {
+      nextTracingContext.flush();
     }
   }
 
