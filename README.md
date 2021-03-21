@@ -2,9 +2,12 @@
 
 [![Javadocs](http://javadoc.io/badge/io.vlingo/vlingo-telemetry.svg?color=brightgreen)](http://javadoc.io/doc/io.vlingo/vlingo-telemetry) [![Build](https://github.com/vlingo/vlingo-telemetry/workflows/Build/badge.svg)](https://github.com/vlingo/vlingo-telemetry/actions?query=workflow%3ABuild) [ ![Download](https://api.bintray.com/packages/vlingo/vlingo-platform-java/vlingo-telemetry/images/download.svg) ](https://bintray.com/vlingo/vlingo-platform-java/vlingo-telemetry/_latestVersion) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/vlingo-platform-java/community)
 
-The VLINGO/PLATFORM reactive metrics collector plugin supporting VLINGO/ACTORS, VLINGO/HTTP, VLINGO/LATTICE, VLINGO/STREAMS, and others.
+The VLINGO XOOM platform SDK Reactive metrics collector plugin supporting XOOM ACTORS, XOOM HTTP, XOOM LATTICE, XOOM STREAMS, and others.
 
 Docs: https://docs.vlingo.io/vlingo-telemetry
+
+### Important
+If using snapshot builds [follow these instructions](https://github.com/vlingo/vlingo-platform#snapshots-repository) or you will experience failures.
 
 ### Bintray
 
