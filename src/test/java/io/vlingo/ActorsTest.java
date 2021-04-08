@@ -5,11 +5,11 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo;
+package io.vlingo.xoom;
 
-import io.vlingo.actors.World;
-import io.vlingo.actors.testkit.TestUntil;
-import io.vlingo.actors.testkit.TestWorld;
+import io.vlingo.xoom.actors.World;
+import io.vlingo.xoom.actors.testkit.TestUntil;
+import io.vlingo.xoom.actors.testkit.TestWorld;
 import org.junit.After;
 import org.junit.Before;
 

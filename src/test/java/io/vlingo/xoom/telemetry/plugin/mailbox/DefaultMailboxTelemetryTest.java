@@ -5,7 +5,7 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry.plugin.mailbox;
+package io.vlingo.xoom.telemetry.plugin.mailbox;
 
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Gauge;
@@ -13,19 +13,19 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import io.vlingo.ActorsTest;
-import io.vlingo.actors.Actor;
-import io.vlingo.actors.Definition;
-import io.vlingo.actors.Message;
-import io.vlingo.actors.NoProtocol;
-import io.vlingo.telemetry.MicrometerTelemetry;
+import io.vlingo.xoom.ActorsTest;
+import io.vlingo.xoom.actors.Actor;
+import io.vlingo.xoom.actors.Definition;
+import io.vlingo.xoom.actors.Message;
+import io.vlingo.xoom.actors.NoProtocol;
+import io.vlingo.xoom.telemetry.MicrometerTelemetry;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.UUID;
 
-import static io.vlingo.telemetry.plugin.mailbox.DefaultMailboxTelemetry.IDLE;
-import static io.vlingo.telemetry.plugin.mailbox.DefaultMailboxTelemetry.PREFIX;
+import static io.vlingo.xoom.telemetry.plugin.mailbox.DefaultMailboxTelemetry.IDLE;
+import static io.vlingo.xoom.telemetry.plugin.mailbox.DefaultMailboxTelemetry.PREFIX;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;

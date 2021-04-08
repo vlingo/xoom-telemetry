@@ -5,12 +5,12 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry.plugin.mailbox;
+package io.vlingo.xoom.telemetry.plugin.mailbox;
 
-import io.vlingo.actors.Actor;
-import io.vlingo.actors.Message;
-import io.vlingo.actors.Returns;
-import io.vlingo.common.SerializableConsumer;
+import io.vlingo.xoom.actors.Actor;
+import io.vlingo.xoom.actors.Message;
+import io.vlingo.xoom.actors.Returns;
+import io.vlingo.xoom.common.SerializableConsumer;
 
 public class TelemetryMessage implements Message {
   private final Message delegate;

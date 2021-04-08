@@ -1,18 +1,18 @@
-# vlingo-telemetry
+# xoom-telemetry
 
-[![Javadocs](http://javadoc.io/badge/io.vlingo/vlingo-telemetry.svg?color=brightgreen)](http://javadoc.io/doc/io.vlingo/vlingo-telemetry) [![Build](https://github.com/vlingo/vlingo-telemetry/workflows/Build/badge.svg)](https://github.com/vlingo/vlingo-telemetry/actions?query=workflow%3ABuild) [![Download](https://img.shields.io/maven-central/v/io.vlingo/vlingo-telemetry?label=maven)](https://search.maven.org/artifact/io.vlingo/vlingo-telemetry) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/vlingo-platform-java/community)
+[![Javadocs](http://javadoc.io/badge/io.vlingo.xoom/xoom-telemetry.svg?color=brightgreen)](http://javadoc.io/doc/io.vlingo.xoom/xoom-telemetry) [![Build](https://github.com/vlingo/xoom-telemetry/workflows/Build/badge.svg)](https://github.com/vlingo/xoom-telemetry/actions?query=workflow%3ABuild) [![Download](https://img.shields.io/maven-central/v/io.vlingo.xoom/xoom-telemetry?label=maven)](https://search.maven.org/artifact/io.vlingo.xoom/xoom-telemetry) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/vlingo-platform-java/community)
 
 The VLINGO XOOM platform SDK Reactive metrics collector plugin supporting XOOM ACTORS, XOOM HTTP, XOOM LATTICE, XOOM STREAMS, and others.
 
-Docs: https://docs.vlingo.io/vlingo-telemetry
+Docs: https://docs.vlingo.io/xoom-telemetry
 
 ### Installation
 
 ```xml
   <dependencies>
     <dependency>
-      <groupId>io.vlingo</groupId>
-      <artifactId>vlingo-telemetry</artifactId>
+      <groupId>io.vlingo.xoom</groupId>
+      <artifactId>xoom-telemetry</artifactId>
       <version>1.6.0</version>
       <scope>compile</scope>
     </dependency>
@@ -21,7 +21,7 @@ Docs: https://docs.vlingo.io/vlingo-telemetry
 
 ```gradle
 dependencies {
-    compile 'io.vlingo:vlingo-telemetry:1.6.0'
+    compile 'io.vlingo.xoom:xoom-telemetry:1.6.0'
 }
 ```
 

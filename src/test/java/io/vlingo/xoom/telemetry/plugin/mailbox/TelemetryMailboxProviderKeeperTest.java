@@ -5,10 +5,10 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry.plugin.mailbox;
+package io.vlingo.xoom.telemetry.plugin.mailbox;
 
-import io.vlingo.actors.MailboxProvider;
-import io.vlingo.actors.MailboxProviderKeeper;
+import io.vlingo.xoom.actors.MailboxProvider;
+import io.vlingo.xoom.actors.MailboxProviderKeeper;
 import org.junit.Before;
 import org.junit.Test;
 

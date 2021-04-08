@@ -5,17 +5,17 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry.plugin.mailbox;
+package io.vlingo.xoom.telemetry.plugin.mailbox;
 
 import java.util.Properties;
 
-import io.vlingo.actors.Configuration;
-import io.vlingo.actors.Registrar;
-import io.vlingo.actors.plugin.Plugin;
-import io.vlingo.actors.plugin.PluginConfiguration;
-import io.vlingo.actors.plugin.PluginProperties;
-import io.vlingo.actors.plugin.mailbox.DefaultMailboxProviderKeeper;
-import io.vlingo.telemetry.Telemetry;
+import io.vlingo.xoom.actors.Configuration;
+import io.vlingo.xoom.actors.Registrar;
+import io.vlingo.xoom.actors.plugin.Plugin;
+import io.vlingo.xoom.actors.plugin.PluginConfiguration;
+import io.vlingo.xoom.actors.plugin.PluginProperties;
+import io.vlingo.xoom.actors.plugin.mailbox.DefaultMailboxProviderKeeper;
+import io.vlingo.xoom.telemetry.Telemetry;
 
 public class MailboxTelemetryPlugin implements Plugin {
   public static class MailboxTelemetryPluginConfiguration implements PluginConfiguration {

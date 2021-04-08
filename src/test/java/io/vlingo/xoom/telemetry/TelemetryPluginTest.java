@@ -5,9 +5,9 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry;
+package io.vlingo.xoom.telemetry;
 
-import io.vlingo.ActorsTest;
+import io.vlingo.xoom.ActorsTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -5,10 +5,10 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry.plugin.mailbox;
+package io.vlingo.xoom.telemetry.plugin.mailbox;
 
-import io.vlingo.actors.Actor;
-import io.vlingo.telemetry.Telemetry;
+import io.vlingo.xoom.actors.Actor;
+import io.vlingo.xoom.telemetry.Telemetry;
 
 public class DefaultMailboxTelemetry implements MailboxTelemetry {
   public static final String PREFIX = "vlingo.MailboxTelemetry.";

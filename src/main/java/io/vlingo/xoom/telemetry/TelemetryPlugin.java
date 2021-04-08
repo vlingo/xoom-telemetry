@@ -5,16 +5,16 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry;
+package io.vlingo.xoom.telemetry;
 
 import java.io.IOException;
 import java.util.Properties;
 
-import io.vlingo.actors.Configuration;
-import io.vlingo.actors.Registrar;
-import io.vlingo.actors.plugin.Plugin;
-import io.vlingo.actors.plugin.PluginConfiguration;
-import io.vlingo.actors.plugin.PluginProperties;
+import io.vlingo.xoom.actors.Configuration;
+import io.vlingo.xoom.actors.Registrar;
+import io.vlingo.xoom.actors.plugin.Plugin;
+import io.vlingo.xoom.actors.plugin.PluginConfiguration;
+import io.vlingo.xoom.actors.plugin.PluginProperties;
 
 public class TelemetryPlugin implements Plugin {
   public static class TelemetryPluginConfiguration implements PluginConfiguration {
@@ -29,7 +29,7 @@ public class TelemetryPlugin implements Plugin {
     @Override
     public void buildWith(final Configuration configuration, final PluginProperties properties) {
       try {
-        this.telemetryProvider = TelemetryProvider.fromClass(properties.getString("providerClass", "io.vlingo.telemetry.DefaultTelemetryProvider"));
+        this.telemetryProvider = TelemetryProvider.fromClass(properties.getString("providerClass", "io.vlingo.xoom.telemetry.DefaultTelemetryProvider"));
       } catch (TelemetryProvider.InvalidTelemetryProviderException e) {
         throw new IllegalStateException(e);
       }

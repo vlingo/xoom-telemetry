@@ -5,7 +5,7 @@
 // was not distributed with this file, You can obtain
 // one at https://mozilla.org/MPL/2.0/.
 
-package io.vlingo.telemetry;
+package io.vlingo.xoom.telemetry;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
