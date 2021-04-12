@@ -7,7 +7,7 @@
 
 package io.vlingo.xoom.telemetry;
 
-import io.vlingo.xoom.ActorsTest;
+import io.vlingo.xoom.telemetry.ActorsTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

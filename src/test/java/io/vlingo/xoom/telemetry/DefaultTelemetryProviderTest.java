@@ -8,7 +8,7 @@
 package io.vlingo.xoom.telemetry;
 
 import io.micrometer.jmx.JmxMeterRegistry;
-import io.vlingo.xoom.ActorsTest;
+import io.vlingo.xoom.telemetry.ActorsTest;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -13,7 +13,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import io.vlingo.xoom.ActorsTest;
+import io.vlingo.xoom.telemetry.ActorsTest;
 import io.vlingo.xoom.actors.Actor;
 import io.vlingo.xoom.actors.Definition;
 import io.vlingo.xoom.actors.Message;

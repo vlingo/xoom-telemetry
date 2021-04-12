@@ -7,7 +7,7 @@
 
 package io.vlingo.xoom.telemetry.plugin.mailbox;
 
-import io.vlingo.xoom.ActorsTest;
+import io.vlingo.xoom.telemetry.ActorsTest;
 import io.vlingo.xoom.actors.Configuration;
 import io.vlingo.xoom.actors.Registrar;
 import io.vlingo.xoom.telemetry.DefaultTelemetryProvider;
