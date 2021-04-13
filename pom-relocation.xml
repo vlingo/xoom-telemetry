@@ -4,7 +4,7 @@
   <artifactId>vlingo-telemetry</artifactId>
   <version>1.6.1-SNAPSHOT</version>
   <name>vlingo-telemetry</name>
-  <description>The reactive metrics collector plugin for the vlingo/platform, including support for vlingo/actors, vlingo/http, vlingo/lattice, vlingo/streams, and others.</description>
+  <description>The reactive metrics collector plugin for the VLINGO XOOM Platform, including support for VLINGO XOOM Actors, VLINGO XOOM Http, VLINGO XOOM Lattice, VLINGO XOOM Streams, and others.</description>
   <url>https://github.com/vlingo/xoom-telemetry</url>
   <licenses>
     <license>
@@ -15,7 +15,7 @@
   <developers>
     <developer>
       <id>vlingo</id>
-      <name>vlingo/PLATFORM Team</name>
+      <name>VLINGO XOOM Team</name>
       <email>info@vlingo.io</email>
       <organization>vlingo</organization>
       <organizationUrl>https://vlingo.io/contributors/</organizationUrl>
