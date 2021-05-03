@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.vlingo.xoom</groupId>
   <artifactId>xoom-telemetry</artifactId>
-  <version>1.7.6</version>
+  <version>1.7.7-SNAPSHOT</version>
   <name>xoom-telemetry</name>
   <description>The reactive metrics collector plugin for the VLINGO XOOM Platform, including support for VLINGO XOOM Actors, VLINGO XOOM Http, VLINGO XOOM Lattice, VLINGO XOOM Streams, and others.</description>
   <url>https://github.com/vlingo/xoom-telemetry</url>
@@ -95,7 +95,7 @@
     <dependency>
       <groupId>io.vlingo.xoom</groupId>
       <artifactId>xoom-actors</artifactId>
-      <version>1.7.6</version>
+      <version>1.7.7-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
