@@ -1,4 +1,4 @@
-package io.vlingo.xoom.telemetry.nativebuild;
+package nativebuild;
 
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.jmx.JmxConfig;
