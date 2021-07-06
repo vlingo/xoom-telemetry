@@ -7,16 +7,17 @@
 
 package io.vlingo.xoom.telemetry;
 
-import io.micrometer.jmx.JmxMeterRegistry;
-import io.vlingo.xoom.telemetry.ActorsTest;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import io.micrometer.jmx.JmxMeterRegistry;
 
 public class DefaultTelemetryProviderTest extends ActorsTest  {
   private TelemetryProvider<?> defaultTelemetryProvider;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();

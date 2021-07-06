@@ -7,7 +7,6 @@
 
 package io.vlingo.xoom.telemetry;
 
-import io.vlingo.xoom.telemetry.ActorsTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,6 +15,7 @@ import org.junit.Test;
 public class TelemetryPluginTest extends ActorsTest {
   private TelemetryPlugin plugin;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
@@ -30,6 +30,7 @@ public class TelemetryPluginTest extends ActorsTest {
     Assert.assertTrue(plugin.telemetry() instanceof MicrometerTelemetry);
   }
 
+  @Override
   @After
   public void tearDown() throws Exception {
     plugin.close();
