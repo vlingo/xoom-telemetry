@@ -13,7 +13,7 @@ Docs: https://docs.vlingo.io/xoom-telemetry
     <dependency>
       <groupId>io.vlingo.xoom</groupId>
       <artifactId>xoom-telemetry</artifactId>
-      <version>1.8.3</version>
+      <version>1.8.4</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -21,7 +21,7 @@ Docs: https://docs.vlingo.io/xoom-telemetry
 
 ```gradle
 dependencies {
-    compile 'io.vlingo.xoom:xoom-telemetry:1.8.3'
+    compile 'io.vlingo.xoom:xoom-telemetry:1.8.4'
 }
 ```
 
